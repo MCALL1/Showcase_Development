@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun  5 15:53:59 2024
 
-@author: mcall
+
+@author: Michael Call 
 """
 
 import tkinter as tk
