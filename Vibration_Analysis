@@ -1,0 +1,38 @@
+import smbus2
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.fftpack import fft
+
+# Initialize I2C bus for MPU-6050
+bus = smbus2.SMBus(1)
+MPU_ADDRESS = 0x68
+
+def read_accelerometer():
+    # Read accelerometer data from MPU-6050 (X, Y, Z axis)
+    data = bus.read_i2c_block_data(MPU_ADDRESS, 0x3B, 6)
+    x = data[0] << 8 | data[1]
+    y = data[2] << 8 | data[3]
+    z = data[4] << 8 | data[5]
+    return np.array([x, y, z])
+
+# Collect time-domain data
+sampling_rate = 1000  # 1000 Hz
+time_data = []
+for i in range(1000):
+    acc_data = read_accelerometer()
+    time_data.append(acc_data[0])  # Collect X-axis data
+    
+time_data = np.array(time_data)
+
+# Perform FFT (convert to frequency domain)
+freq_data = fft(time_data)
+
+# Visualize time-domain and frequency-domain data
+plt.subplot(2, 1, 1)
+plt.plot(time_data)
+plt.title('Time-Domain Signal')
+
+plt.subplot(2, 1, 2)
+plt.plot(np.abs(freq_data))
+plt.title('Frequency-Domain Signal (FFT)')
+plt.show()
