@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
+Michael Call 
 Created on Sat Aug 12 14:47:02 2023
 
-@author: VISION AI CONSULTING
-WWW.VISIONAICONSULTING.COM
-"""
+
 
 from keras.layers import Dense, Activation, Dropout, Conv2D, MaxPooling2D, Flatten
 from keras.models import Sequential
